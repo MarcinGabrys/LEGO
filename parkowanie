@@ -1,0 +1,39 @@
+#include "hFramework.h"
+#include <stddef.h>
+#include <stdio.h>
+#include <hSystem.h>
+#include <DistanceSensor.h>
+
+using namespace hModules;
+using namespace hFramework;
+
+int mot1power = 500;
+int mot2power = 1000;
+int mot2angle = 0;
+char c;
+int power_cos = 0;
+bool DEBUG = 0;
+int dist2;
+int dist3;
+int dist4;
+int dist5;
+int left[30];
+int left_counter = 0;
+int right[30];		
+int right_counter = 0;
+
+void Stop_Exception(){
+	bool prev_button = false;
+	bool button;
+	if(DEBUG) printf("Got button EXCEPTION\n");
+	for(;;){
+		if((button = hBtn1.isPressed()) && prev_button == false){
+			if(DEBUG) printf("In IF EXCEPTION\n");
+			while((button = hBtn1.isPressed()))
+				hMot3.setPower(0);
+			while((button = hBtn1.isPressed()) == false)
+				hMot3.setPower(0);
+		}
+		prev_button = button;
+	}
+}
